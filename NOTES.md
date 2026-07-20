@@ -1,30 +1,3 @@
-# Notes
+# NOTES
 
-## Approach
-
-I first understood the provided GPT implementation and training pipeline before making incremental changes.
-
-The focus was on improving optimization rather than making large architectural changes.
-
-The primary modifications were:
-
-- AdamW optimizer
-- Cosine learning rate scheduling
-- Gradient clipping
-
-I also experimented with:
-
-- Weight tying
-- GPT-2 style parameter initialization
-
-These latter changes did not improve the development BPB within the fixed 2000-step training budget.
-
-## Future Work
-
-With more time, I would investigate:
-
-- Better tokenizer (especially for mixed English/Hindi text)
-- Using more of the 2M parameter budget
-- Longer context length
-- Architecture search (depth vs width)
-- Learning rate warmup
+The submitted model uses the optimizer configuration from Run 1 because it achieved the best measured development BPB of **2.3718**. The primary improvements were replacing Adam with AdamW, adding cosine learning rate scheduling, and gradient clipping to stabilize optimization. These changes required minimal architectural modifications while remaining fully compatible with the provided evaluation pipeline. I also evaluated weight tying together with GPT-2 style initialization. Under the fixed 2000-step training budget, these modifications did not improve the evaluation metric, so they were not selected for the final checkpoint. Given additional time, I would investigate increasing model capacity toward the 2M parameter limit and designing a tokenizer better suited for mixed English/Hindi text.
