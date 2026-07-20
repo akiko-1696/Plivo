@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>LLM Competition Summary</title>
+</head>
+<body>
+
+<h1>Submission Summary</h1>
+
+<p>
+This submission improves the provided GPT baseline primarily through optimization
+changes while keeping the architecture compatible with the evaluation pipeline.
+</p>
+
+<h2>Modifications</h2>
+
+<ul>
+<li>Adam optimizer replaced with AdamW.</li>
+<li>Cosine learning rate scheduler added.</li>
+<li>Gradient clipping added.</li>
+<li>Experimented with weight tying.</li>
+<li>Experimented with GPT-2 style initialization.</li>
+</ul>
+
+<h2>Results</h2>
+
+<p>
+Final evaluation:
+</p>
+
+<ul>
+<li>Development BPB: <strong>2.3718</strong></li>
+<li>Training steps: 2000</li>
+<li>Parameters: 1,339,840</li>
+</ul>
+
+<p>
+The optimizer improvements produced a stable training process. Additional
+experiments with weight tying and initialization did not produce measurable
+improvements under the fixed training budget and were documented accordingly.
+</p>
+
+</body>
+</html>
