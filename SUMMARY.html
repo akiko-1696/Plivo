@@ -1,43 +1,97 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<title>LLM Competition Summary</title>
+<meta charset="UTF-8">
+<title>LLM Optimization Challenge Summary</title>
+<style>
+body{
+    font-family:Arial,Helvetica,sans-serif;
+    margin:40px;
+    line-height:1.6;
+}
+h1,h2{
+    color:#222;
+}
+table{
+    border-collapse:collapse;
+    width:100%;
+}
+table,th,td{
+    border:1px solid #ccc;
+}
+th,td{
+    padding:8px;
+}
+code{
+    background:#f4f4f4;
+    padding:2px 4px;
+}
+</style>
 </head>
+
 <body>
 
-<h1>Submission Summary</h1>
+<h1>LLM Optimization Challenge Submission Summary</h1>
+
+<h2>Overview</h2>
 
 <p>
-This submission improves the provided GPT baseline primarily through optimization
-changes while keeping the architecture compatible with the evaluation pipeline.
+This submission focuses on improving the provided GPT baseline through optimization-related changes while maintaining full compatibility with the supplied evaluation framework and remaining within the 2 million parameter limit.
 </p>
 
-<h2>Modifications</h2>
+<h2>Model Architecture</h2>
 
-<ul>
-<li>Adam optimizer replaced with AdamW.</li>
-<li>Cosine learning rate scheduler added.</li>
-<li>Gradient clipping added.</li>
-<li>Experimented with weight tying.</li>
-<li>Experimented with GPT-2 style initialization.</li>
-</ul>
+<table>
+<tr><th>Parameter</th><th>Value</th></tr>
+<tr><td>Architecture</td><td>Decoder-only GPT Transformer</td></tr>
+<tr><td>Transformer Blocks</td><td>4</td></tr>
+<tr><td>Attention Heads</td><td>4</td></tr>
+<tr><td>Embedding Dimension</td><td>160</td></tr>
+<tr><td>Block Size</td><td>128</td></tr>
+<tr><td>Vocabulary</td><td>256-byte tokenizer</td></tr>
+<tr><td>Dropout</td><td>0.0</td></tr>
+<tr><td>Parameter Count</td><td>1,339,840</td></tr>
+<tr><td>Training Steps</td><td>2000</td></tr>
+<tr><td>Development BPB</td><td><strong>2.3718</strong></td></tr>
+</table>
 
-<h2>Results</h2>
+<h2>Experiments Performed</h2>
+
+<h3>Run 1 (Selected)</h3>
 
 <p>
-Final evaluation:
+The optimizer was changed from Adam to AdamW. Cosine learning rate scheduling and gradient clipping were added to improve optimization stability while preserving the provided architecture. This configuration achieved the best measured development BPB and was selected as the final submission.
 </p>
 
-<ul>
-<li>Development BPB: <strong>2.3718</strong></li>
-<li>Training steps: 2000</li>
-<li>Parameters: 1,339,840</li>
-</ul>
+<h3>Run 2</h3>
 
 <p>
-The optimizer improvements produced a stable training process. Additional
-experiments with weight tying and initialization did not produce measurable
-improvements under the fixed training budget and were documented accordingly.
+Weight tying and GPT-2 style initialization (standard deviation reduced from 0.05 to 0.02) were evaluated. Under the fixed training budget of 2000 optimization steps, these modifications did not produce a measurable improvement in development BPB compared to Run 1.
+</p>
+
+<h2>Final Configuration</h2>
+
+<ul>
+<li>Optimizer: AdamW</li>
+<li>Learning Rate: 3e-4</li>
+<li>Weight Decay: 0.1</li>
+<li>Betas: (0.9, 0.95)</li>
+<li>CosineAnnealingLR scheduler</li>
+<li>Gradient clipping (max norm = 1.0)</li>
+<li>2000 training steps</li>
+<li>Development BPB: 2.3718</li>
+</ul>
+
+<h2>Why This Configuration Was Selected</h2>
+
+<p>
+Among the completed experiments, the optimizer improvements produced the lowest measured development BPB while maintaining stable optimization throughout training. Although weight tying and GPT-2 style initialization were also explored, they did not improve the evaluation metric within the fixed training budget. Therefore, the optimizer-only configuration was selected for the final checkpoint.
+</p>
+
+<h2>Human vs Machine Contribution</h2>
+
+<p>
+AI assistance was used to explain the provided codebase, discuss optimization strategies, review potential experiments, and help prepare the submission documentation. The human contributor analyzed the starter implementation, selected the experiments to perform, modified the source code, executed all training and evaluation locally, interpreted the experimental results, chose the final checkpoint based on the measured BPB, and prepared the final submission.
 </p>
 
 </body>
